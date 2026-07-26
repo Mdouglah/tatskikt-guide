@@ -19,6 +19,9 @@ const UI = {
     doorToggle: 'Visa dörr på väggen',
     view2d: 'Platt vy',
     view3d: '3D-genomskärning',
+    dryLabel: 'Torktid',
+    tipLabel: 'Vanligt misstag',
+    downloadChecklist: 'Ladda ner checklista',
     fields: {
       wallW: 'Väggbredd (cm)', wallH: 'Väggens höjd (cm)',
       winW: 'Fönsterbredd (cm)', winH: 'Fönsterhöjd (cm)',
@@ -43,15 +46,23 @@ const UI = {
       },
     },
     steps: {
-      s1: { name: 'Underlag', title: 'Underlaget förbereds' },
-      s2: { name: 'Grundning', title: 'Primer appliceras' },
+      s1: { name: 'Underlag', title: 'Underlaget förbereds', tip: 'Att inte kontrollera att underlaget verkligen är torrt och jämnt innan nästa steg påbörjas.' },
+      s2: {
+        name: 'Grundning', title: 'Primer appliceras',
+        dry: 'Normal torktid: cirka 2–4 timmar, men följ alltid produktens anvisningar.',
+        tip: 'Att lägga tätskikt innan grundningen har torkat helt.',
+      },
       s3: {
         name: 'Tätskikt', title: 'Tätskikt och armering',
         text: 'Ett vattentätt skikt (tätskiktsmassa) appliceras över hela väggen. Vid golvanslutningen, i hörn och runt fönster läggs en extra förstärkning — armering — eftersom det är just där rörelser i huset och fuktbelastning är som störst. Utan den förstärkningen är risken för sprickor och läckage betydligt högre.',
+        dry: 'Normal torktid: cirka 24 timmar innan kakel läggs, längre vid tjockare skikt eller låg temperatur.',
+        tip: 'Att glömma extra armering i hörn, vid golvbrunnen eller runt fönster/dörr.',
       },
       s4: {
         name: 'Kakel', title: 'Kaklet läggs',
         text: 'När tätskiktet har torkat läggs kaklet ovanpå. Det är tätskiktet som håller vattnet borta från väggen — kaklet är den yta man ser och tar i, men det är inte det som skyddar mot fukt.',
+        dry: 'Fogen torkar oftast inom 24 timmar innan väggen belastas med vatten.',
+        tip: 'Att duscha i det nya badrummet innan fog och tätskikt torkat klart enligt tillverkarens tid.',
       },
     },
     callouts: {
@@ -74,6 +85,9 @@ const UI = {
     doorToggle: 'Show a door on the wall',
     view2d: 'Flat view',
     view3d: '3D exploded view',
+    dryLabel: 'Drying time',
+    tipLabel: 'Common mistake',
+    downloadChecklist: 'Download checklist',
     fields: {
       wallW: 'Wall width (cm)', wallH: 'Wall height (cm)',
       winW: 'Window width (cm)', winH: 'Window height (cm)',
@@ -98,15 +112,23 @@ const UI = {
       },
     },
     steps: {
-      s1: { name: 'Substrate', title: 'The substrate is prepared' },
-      s2: { name: 'Priming', title: 'Primer is applied' },
+      s1: { name: 'Substrate', title: 'The substrate is prepared', tip: 'Not checking that the substrate is truly dry and level before moving on.' },
+      s2: {
+        name: 'Priming', title: 'Primer is applied',
+        dry: "Typical drying time: about 2–4 hours, but always follow the product's instructions.",
+        tip: 'Applying the waterproofing before the primer has fully dried.',
+      },
       s3: {
         name: 'Waterproofing', title: 'Waterproofing and reinforcement',
         text: "A waterproof coating is applied across the entire wall. At the floor junction, in corners, and around windows, extra reinforcement is added — because that's exactly where movement in the building and moisture stress are greatest. Without that reinforcement, the risk of cracking and leaks is far higher.",
+        dry: 'Typical drying time: about 24 hours before tiling, longer with thicker coats or low temperatures.',
+        tip: 'Forgetting extra reinforcement in corners, at the floor drain, or around windows/doors.',
       },
       s4: {
         name: 'Tiles', title: 'Tiles are laid',
         text: "Once the waterproofing has dried, tiles are laid on top. It's the waterproofing that keeps water out of the wall — the tiles are the surface you see and touch, but they're not what protects against moisture.",
+        dry: 'Grout typically dries within 24 hours before the wall can handle water.',
+        tip: "Showering in the new bathroom before the grout and waterproofing have fully cured per the manufacturer's time.",
       },
     },
     callouts: {
@@ -129,6 +151,9 @@ const UI = {
     doorToggle: 'إظهار باب على الجدار',
     view2d: 'عرض مسطح',
     view3d: 'عرض ثلاثي الأبعاد',
+    dryLabel: 'مدة الجفاف',
+    tipLabel: 'خطأ شائع',
+    downloadChecklist: 'تحميل قائمة التحقق',
     fields: {
       wallW: 'عرض الجدار (سم)', wallH: 'ارتفاع الجدار (سم)',
       winW: 'عرض النافذة (سم)', winH: 'ارتفاع النافذة (سم)',
@@ -153,15 +178,23 @@ const UI = {
       },
     },
     steps: {
-      s1: { name: 'الأساس', title: 'تجهيز الأساس' },
-      s2: { name: 'التأسيس', title: 'وضع طبقة التأسيس' },
+      s1: { name: 'الأساس', title: 'تجهيز الأساس', tip: 'عدم التأكد من أن الأساس جاف ومستوٍ تمامًا قبل الانتقال للخطوة التالية.' },
+      s2: {
+        name: 'التأسيس', title: 'وضع طبقة التأسيس',
+        dry: 'مدة الجفاف المعتادة: حوالي 2–4 ساعات، لكن يجب دائمًا اتباع تعليمات المنتج.',
+        tip: 'وضع طبقة العزل المائي قبل جفاف طبقة التأسيس بالكامل.',
+      },
       s3: {
         name: 'العزل المائي', title: 'العزل المائي والتعزيز',
         text: 'تُوضع طبقة عازلة للماء على كامل الجدار. عند اتصال الجدار بالأرضية، وفي الزوايا، وحول النافذة، تُضاف طبقة تعزيز إضافية — لأن هذه هي بالتحديد النقاط الأكثر عرضة للحركة في المبنى وللرطوبة. بدون هذا التعزيز، يزداد خطر التشقق والتسرب بشكل كبير.',
+        dry: 'مدة الجفاف المعتادة: حوالي 24 ساعة قبل تركيب البلاط، وقد تطول مع الطبقات السميكة أو درجات الحرارة المنخفضة.',
+        tip: 'نسيان التعزيز الإضافي في الزوايا، عند بالوعة الأرضية، أو حول النوافذ/الأبواب.',
       },
       s4: {
         name: 'البلاط', title: 'تركيب البلاط',
         text: 'بعد جفاف طبقة العزل المائي، يُركَّب البلاط فوقها. طبقة العزل هي التي تمنع تسرب الماء إلى الجدار — أما البلاط فهو السطح الذي تراه وتلمسه، لكنه ليس ما يحمي من الرطوبة.',
+        dry: 'عادة ما يجف الفاصل خلال 24 ساعة قبل تعريض الجدار للماء.',
+        tip: 'استخدام الحمام الجديد قبل جفاف الفاصل وطبقة العزل بالكامل حسب المدة الموصى بها من الشركة المصنعة.',
       },
     },
     callouts: {
@@ -177,10 +210,10 @@ function getSteps(wallType, lang) {
   const t = UI[lang]
   const w = t.wallTypes[wallType]
   return [
-    { id: 1, code: `${t.stepWord} 01`, name: t.steps.s1.name, title: t.steps.s1.title, text: w.prep, icon: 'underlag' },
-    { id: 2, code: `${t.stepWord} 02`, name: t.steps.s2.name, title: t.steps.s2.title, text: w.primer, icon: 'grundning' },
-    { id: 3, code: `${t.stepWord} 03`, name: t.steps.s3.name, title: t.steps.s3.title, text: t.steps.s3.text, icon: 'tatskikt' },
-    { id: 4, code: `${t.stepWord} 04`, name: t.steps.s4.name, title: t.steps.s4.title, text: t.steps.s4.text, icon: 'kakel' },
+    { id: 1, code: `${t.stepWord} 01`, name: t.steps.s1.name, title: t.steps.s1.title, text: w.prep, tip: t.steps.s1.tip, icon: 'underlag' },
+    { id: 2, code: `${t.stepWord} 02`, name: t.steps.s2.name, title: t.steps.s2.title, text: w.primer, dry: t.steps.s2.dry, tip: t.steps.s2.tip, icon: 'grundning' },
+    { id: 3, code: `${t.stepWord} 03`, name: t.steps.s3.name, title: t.steps.s3.title, text: t.steps.s3.text, dry: t.steps.s3.dry, tip: t.steps.s3.tip, icon: 'tatskikt' },
+    { id: 4, code: `${t.stepWord} 04`, name: t.steps.s4.name, title: t.steps.s4.title, text: t.steps.s4.text, dry: t.steps.s4.dry, tip: t.steps.s4.tip, icon: 'kakel' },
   ]
 }
 
@@ -437,58 +470,113 @@ function pts(arr) {
   return arr.map((p) => p.join(',')).join(' ')
 }
 
-function Exploded3D({ wallType, step, lang }) {
+function projectQuad(corners) {
+  return corners.map((c) => iso(...c))
+}
+
+function ringPath(outer, holes) {
+  const seg = (poly) => `M ${poly.map((p) => p.join(',')).join(' L ')} Z`
+  return seg(outer) + ' ' + holes.map(seg).join(' ')
+}
+
+function Exploded3D({ wallW, wallH, winW, winH, winX, winY, doorEnabled, doorW, doorX, wallType, step, lang }) {
   const t = UI[lang]
   const wc = WALL_COLORS[wallType]
   const wt = t.wallTypes[wallType]
-  const W = 150, D = 95, GAP = 26
 
+  const S = 140 / Math.max(wallW, wallH, 1)
+  const boxW = wallW * S
+  const boxH = wallH * S
+  const hasWindow = winW > 0 && winH > 0
+  const winIsoX = winX * S, winIsoW = winW * S, winIsoZ = winY * S, winIsoH = winH * S
+  const hasDoor = doorEnabled && doorW > 0
+  const doorIsoX = doorX * S, doorIsoW = doorW * S, doorIsoH = Math.min(200, wallH - 10) * S
+
+  const layerDepth = 13, gap = 40
   const allLayers = [
-    { id: 1, h: 34, color: wc.baseColor, name: t.legend.underlag, sub: wt.prepShort },
-    { id: 2, h: 10, color: '#e2a63f', name: t.legend.grundning, sub: wt.primerShort },
-    { id: 3, h: 14, color: '#0e6b5c', name: t.legend.tatskikt, sub: t.callouts.membraneSub },
-    { id: 4, h: 20, color: '#f1f4f2', name: t.legend.kakel, sub: t.callouts.tileSub },
+    { id: 1, h: 0, color: wc.baseColor, name: t.legend.underlag, sub: wt.prepShort },
+    { id: 2, h: 0, color: '#e2a63f', name: t.legend.grundning, sub: wt.primerShort },
+    { id: 3, h: 0, color: '#0e6b5c', name: t.legend.tatskikt, sub: t.callouts.membraneSub },
+    { id: 4, h: 0, color: '#f1f4f2', name: t.legend.kakel, sub: t.callouts.tileSub },
   ]
   const visible = allLayers.filter((l) => l.id <= step)
-
-  let z0 = 0
+  let y0 = 0
   const placed = visible.map((l) => {
-    const layer = { ...l, z0 }
-    z0 += l.h + GAP
+    const layer = { ...l, y0 }
+    y0 += layerDepth + gap
     return layer
   })
 
-  const labelLX = 175
+  const holesFor = () => {
+    const holes = []
+    if (hasWindow) holes.push([winIsoX, winIsoX + winIsoW, winIsoZ, winIsoZ + winIsoH])
+    if (hasDoor) holes.push([doorIsoX, doorIsoX + doorIsoW, 0, doorIsoH])
+    return holes
+  }
+  const holeRects = holesFor()
+
+  const labelLX = boxW + 55
 
   return (
-    <svg width="100%" viewBox="-90 -200 460 380" role="img" style={{ maxWidth: 460 }}>
+    <svg width="100%" viewBox="-210 -180 600 400" role="img" style={{ maxWidth: 600 }}>
       <title>{t.view3d}: {t.title}</title>
+
+      {/* ground plane for context */}
+      <polygon
+        points={pts([iso(-25, -25, 0), iso(boxW + 25, -25, 0), iso(boxW + 25, y0 + 15, 0), iso(-25, y0 + 15, 0)])}
+        fill="var(--bg)" stroke="var(--line)" strokeWidth="0.5"
+      />
+
+      {/* reference opening behind the whole stack, so peeled layers reveal it */}
+      {(hasWindow || hasDoor) && (
+        <g opacity="0.9">
+          {hasWindow && (
+            <polygon
+              points={pts([iso(winIsoX, -22, winIsoZ), iso(winIsoX + winIsoW, -22, winIsoZ), iso(winIsoX + winIsoW, -22, winIsoZ + winIsoH), iso(winIsoX, -22, winIsoZ + winIsoH)])}
+              fill="#cfe3f2" stroke="#7a8a94" strokeWidth="1"
+            />
+          )}
+          {hasDoor && (
+            <polygon
+              points={pts([iso(doorIsoX, -22, 0), iso(doorIsoX + doorIsoW, -22, 0), iso(doorIsoX + doorIsoW, -22, doorIsoH), iso(doorIsoX, -22, doorIsoH)])}
+              fill="#8b6b4a" stroke="#5c4530" strokeWidth="1"
+            />
+          )}
+        </g>
+      )}
+
       {placed.map((l, i) => {
-        const z1 = l.z0 + l.h
-        const top = [iso(0, 0, z1), iso(W, 0, z1), iso(W, D, z1), iso(0, D, z1)]
-        const front = [iso(0, 0, l.z0), iso(W, 0, l.z0), iso(W, 0, z1), iso(0, 0, z1)]
-        const right = [iso(W, 0, l.z0), iso(W, D, l.z0), iso(W, D, z1), iso(W, 0, z1)]
-        const anchor = iso(W, D * 0.5, l.z0 + l.h * 0.5)
+        const y1 = l.y0 + layerDepth
+        const frontOuter = projectQuad([[0, l.y0, 0], [boxW, l.y0, 0], [boxW, l.y0, boxH], [0, l.y0, boxH]])
+        const frontHoles = holeRects.map(([x0, x1, z0, z1]) =>
+          projectQuad([[x0, l.y0, z0], [x1, l.y0, z0], [x1, l.y0, z1], [x0, l.y0, z1]])
+        )
+        const top = projectQuad([[0, l.y0, boxH], [boxW, l.y0, boxH], [boxW, y1, boxH], [0, y1, boxH]])
+        const side = projectQuad([[boxW, l.y0, 0], [boxW, y1, 0], [boxW, y1, boxH], [boxW, l.y0, boxH]])
+        const anchor = iso(boxW, l.y0 + layerDepth / 2, boxH * 0.42)
         const next = placed[i + 1]
+        const connA = iso(boxW * 0.5, y1, boxH * 0.5)
+        const connB = next ? iso(boxW * 0.5, next.y0, boxH * 0.5) : null
+
         return (
           <g key={l.id}>
-            {next && (
-              <line
-                x1={iso(W / 2, D / 2, z1)[0]} y1={iso(W / 2, D / 2, z1)[1]}
-                x2={iso(W / 2, D / 2, next.z0)[0]} y2={iso(W / 2, D / 2, next.z0)[1]}
-                stroke="var(--ink-soft)" strokeWidth="0.75" strokeDasharray="2 3" opacity="0.5"
-              />
+            {connB && (
+              <line x1={connA[0]} y1={connA[1]} x2={connB[0]} y2={connB[1]}
+                stroke="var(--ink-soft)" strokeWidth="0.75" strokeDasharray="2 3" opacity="0.45" />
             )}
-            <polygon points={pts(right)} fill={shade(l.color, -45)} stroke={shade(l.color, -60)} strokeWidth="0.5" />
-            <polygon points={pts(front)} fill={l.color} stroke={shade(l.color, -30)} strokeWidth="0.5" />
+            <polygon points={pts(side)} fill={shade(l.color, -45)} stroke={shade(l.color, -60)} strokeWidth="0.5" />
             <polygon points={pts(top)} fill={shade(l.color, 22)} stroke={shade(l.color, -10)} strokeWidth="0.5" />
+            <path d={ringPath(frontOuter, frontHoles)} fill={l.color} stroke={shade(l.color, -30)} strokeWidth="0.5" fillRule="evenodd" />
+
             {l.id === 3 && (
-              <rect
-                x={iso(0, 0, l.z0)[0]} y={iso(0, 0, l.z0)[1] - 3}
-                width={iso(W, 0, l.z0)[0] - iso(0, 0, l.z0)[0]} height="3"
-                fill="var(--reinforce)" opacity="0.9"
-              />
+              <g stroke="var(--reinforce)" strokeWidth="2.5" fill="none" opacity="0.95">
+                <line x1={frontOuter[0][0]} y1={frontOuter[0][1]} x2={frontOuter[1][0]} y2={frontOuter[1][1]} />
+                {frontHoles.map((h, hi) => (
+                  <polygon key={hi} points={pts(h)} />
+                ))}
+              </g>
             )}
+
             <line x1={anchor[0]} y1={anchor[1]} x2={labelLX - 8} y2={anchor[1] - 4} stroke={shade(l.color, -40)} strokeWidth="1" opacity="0.7" />
             <circle cx={anchor[0]} cy={anchor[1]} r="3" fill={shade(l.color, -40)} />
             <text x={labelLX} y={anchor[1]} fontSize="12.5" fontWeight="600" fill="var(--ink)">{l.name}</text>
@@ -530,6 +618,29 @@ export default function App() {
   const steps = getSteps(wallType, lang)
   const activeStep = steps.find((s) => s.id === step)
 
+  const downloadChecklist = () => {
+    const lines = []
+    lines.push(t.title)
+    lines.push(t.wallTypes[wallType].label)
+    lines.push('')
+    steps.forEach((s) => {
+      lines.push(`${s.code} — ${s.name}`)
+      lines.push(s.title)
+      lines.push(s.text)
+      if (s.dry) lines.push(`${t.dryLabel}: ${s.dry}`)
+      if (s.tip) lines.push(`${t.tipLabel}: ${s.tip}`)
+      lines.push('')
+    })
+    lines.push(t.footer)
+    const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'tatskikt-checklista.txt'
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
   return (
     <div className="app" dir={dir} lang={lang}>
       <div className="header">
@@ -553,6 +664,7 @@ export default function App() {
             ))}
           </div>
           <button className="print-btn" onClick={() => window.print()}>{t.printBtn}</button>
+          <button className="print-btn checklist-btn" onClick={downloadChecklist}>{t.downloadChecklist}</button>
         </div>
       </div>
 
@@ -593,7 +705,12 @@ export default function App() {
 
           <div className="illustration-wrap">
             {view3d ? (
-              <Exploded3D wallType={wallType} step={step} lang={lang} />
+              <Exploded3D
+                wallW={wallW} wallH={wallH}
+                winW={clampedWinW} winH={clampedWinH} winX={clampedWinX} winY={clampedWinY}
+                doorEnabled={doorEnabled} doorW={clampedDoorW} doorX={clampedDoorX}
+                wallType={wallType} step={step} lang={lang}
+              />
             ) : (
               <WallIllustration
                 wallW={wallW} wallH={wallH}
@@ -626,6 +743,18 @@ export default function App() {
           <span className="code">{activeStep.code}</span>
           <strong className="explain-title">{activeStep.title}</strong>
           <p className="explain-text">{activeStep.text}</p>
+          {activeStep.dry && (
+            <div className="explain-note dry-note">
+              <span className="note-label">{t.dryLabel}</span>
+              <span>{activeStep.dry}</span>
+            </div>
+          )}
+          {activeStep.tip && (
+            <div className="explain-note tip-note">
+              <span className="note-label">{t.tipLabel}</span>
+              <span>{activeStep.tip}</span>
+            </div>
+          )}
         </div>
       </div>
 
