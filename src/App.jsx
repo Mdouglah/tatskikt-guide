@@ -16,10 +16,14 @@ const UI = {
     revealLabel: 'Kakelläggning',
     settingsOpen: 'Anpassa mått för väggen',
     settingsClose: 'Dölj mått',
+    doorToggle: 'Visa dörr på väggen',
+    view2d: 'Platt vy',
+    view3d: '3D-genomskärning',
     fields: {
       wallW: 'Väggbredd (cm)', wallH: 'Väggens höjd (cm)',
       winW: 'Fönsterbredd (cm)', winH: 'Fönsterhöjd (cm)',
       winX: 'Fönster: avstånd från vänster', winY: 'Fönster: avstånd från golv',
+      doorW: 'Dörrbredd (cm)', doorX: 'Dörr: avstånd från vänster',
     },
     footer: 'Tätskikt-guide · byggd för att förklara badrumsrenovering för kunder',
     wallTypes: {
@@ -53,7 +57,7 @@ const UI = {
     callouts: {
       primerLabel: 'Grundning',
       membraneLabel: 'Tätskikt', membraneSub: 'Vattentät massa, hela ytan',
-      reinforceLabel: 'Armering', reinforceSub: 'Golv, hörn, fönster',
+      reinforceLabel: 'Armering', reinforceSub: 'Golv, hörn, fönster och dörr',
       tileLabel: 'Kakel', tileSub: 'Ytskikt — inte skyddet',
     },
   },
@@ -67,10 +71,14 @@ const UI = {
     revealLabel: 'Tiling progress',
     settingsOpen: 'Customize wall dimensions',
     settingsClose: 'Hide dimensions',
+    doorToggle: 'Show a door on the wall',
+    view2d: 'Flat view',
+    view3d: '3D exploded view',
     fields: {
       wallW: 'Wall width (cm)', wallH: 'Wall height (cm)',
       winW: 'Window width (cm)', winH: 'Window height (cm)',
       winX: 'Window: distance from left', winY: 'Window: distance from floor',
+      doorW: 'Door width (cm)', doorX: 'Door: distance from left',
     },
     footer: 'Waterproofing guide · built to explain bathroom renovation to customers',
     wallTypes: {
@@ -104,7 +112,7 @@ const UI = {
     callouts: {
       primerLabel: 'Priming',
       membraneLabel: 'Waterproofing', membraneSub: 'Waterproof compound, whole surface',
-      reinforceLabel: 'Reinforcement', reinforceSub: 'Floor, corners, window',
+      reinforceLabel: 'Reinforcement', reinforceSub: 'Floor, corners, window and door',
       tileLabel: 'Tiles', tileSub: 'Surface layer — not the protection',
     },
   },
@@ -118,10 +126,14 @@ const UI = {
     revealLabel: 'تقدّم تركيب البلاط',
     settingsOpen: 'تخصيص أبعاد الجدار',
     settingsClose: 'إخفاء الأبعاد',
+    doorToggle: 'إظهار باب على الجدار',
+    view2d: 'عرض مسطح',
+    view3d: 'عرض ثلاثي الأبعاد',
     fields: {
       wallW: 'عرض الجدار (سم)', wallH: 'ارتفاع الجدار (سم)',
       winW: 'عرض النافذة (سم)', winH: 'ارتفاع النافذة (سم)',
       winX: 'النافذة: المسافة من اليسار', winY: 'النافذة: المسافة من الأرضية',
+      doorW: 'عرض الباب (سم)', doorX: 'الباب: المسافة من اليسار',
     },
     footer: 'دليل العزل المائي · صُمم لشرح تجديد الحمام للعملاء',
     wallTypes: {
@@ -155,7 +167,7 @@ const UI = {
     callouts: {
       primerLabel: 'التأسيس',
       membraneLabel: 'العزل المائي', membraneSub: 'مادة عازلة للماء، على كامل السطح',
-      reinforceLabel: 'التعزيز', reinforceSub: 'الأرضية، الزوايا، النافذة',
+      reinforceLabel: 'التعزيز', reinforceSub: 'الأرضية، الزوايا، النافذة والباب',
       tileLabel: 'البلاط', tileSub: 'طبقة السطح — وليست الحماية',
     },
   },
@@ -212,7 +224,7 @@ function StepIcon({ type }) {
   )
 }
 
-function useGeometry({ wallW, wallH, winW, winH, winX, winY, step, reveal }) {
+function useGeometry({ wallW, wallH, winW, winH, winX, winY, doorEnabled, doorW, doorX, step, reveal }) {
   return useMemo(() => {
     const areaX = 170, areaY = 90, areaW = 260, areaH = 340
     const scale = Math.min(areaW / wallW, areaH / wallH)
@@ -226,6 +238,13 @@ function useGeometry({ wallW, wallH, winW, winH, winX, winY, step, reveal }) {
     const winPxH = winH * scale
     const winPxX = wallX + winX * scale
     const winPxY = wallY + wallPxH - (winY + winH) * scale
+
+    const doorH = Math.min(200, wallH - 10)
+    const hasDoor = doorEnabled && doorW > 0
+    const doorPxW = doorW * scale
+    const doorPxH = doorH * scale
+    const doorPxX = wallX + doorX * scale
+    const doorPxY = wallY + wallPxH - doorPxH
 
     const strip = 7
     const tileSize = 22
@@ -244,9 +263,11 @@ function useGeometry({ wallW, wallH, winW, winH, winX, winY, step, reveal }) {
 
     return {
       wallX, wallY, wallPxW, wallPxH, hasWindow,
-      winPxX, winPxY, winPxW, winPxH, strip, tiles, revealStartX, revealPx,
+      winPxX, winPxY, winPxW, winPxH,
+      hasDoor, doorPxX, doorPxY, doorPxW, doorPxH,
+      strip, tiles, revealStartX, revealPx,
     }
-  }, [wallW, wallH, winW, winH, winX, winY, step, reveal])
+  }, [wallW, wallH, winW, winH, winX, winY, doorEnabled, doorW, doorX, step, reveal])
 }
 
 function DimensionLines({ g, wallW, wallH }) {
@@ -279,9 +300,13 @@ function Callout({ px, py, lx, ly, label, sub, color }) {
   )
 }
 
-function WallIllustration({ wallW, wallH, winW, winH, winX, winY, step, reveal, wallType, lang }) {
-  const g = useGeometry({ wallW, wallH, winW, winH, winX, winY, step, reveal })
-  const { wallX, wallY, wallPxW, wallPxH, hasWindow, winPxX, winPxY, winPxW, winPxH, strip, tiles, revealStartX, revealPx } = g
+function WallIllustration({ wallW, wallH, winW, winH, winX, winY, doorEnabled, doorW, doorX, step, reveal, wallType, lang }) {
+  const g = useGeometry({ wallW, wallH, winW, winH, winX, winY, doorEnabled, doorW, doorX, step, reveal })
+  const {
+    wallX, wallY, wallPxW, wallPxH, hasWindow, winPxX, winPxY, winPxW, winPxH,
+    hasDoor, doorPxX, doorPxY, doorPxW, doorPxH,
+    strip, tiles, revealStartX, revealPx,
+  } = g
   const wc = WALL_COLORS[wallType]
   const t = UI[lang]
   const wt = t.wallTypes[wallType]
@@ -334,6 +359,13 @@ function WallIllustration({ wallW, wallH, winW, winH, winX, winY, step, reveal, 
               <rect x={winPxX + winPxW} y={winPxY - strip} width={strip} height={winPxH + 2 * strip} fill="var(--reinforce)" />
             </>
           )}
+          {hasDoor && (
+            <>
+              <rect x={doorPxX - strip} y={doorPxY - strip} width={doorPxW + 2 * strip} height={strip} fill="var(--reinforce)" />
+              <rect x={doorPxX - strip} y={doorPxY - strip} width={strip} height={doorPxH + strip} fill="var(--reinforce)" />
+              <rect x={doorPxX + doorPxW} y={doorPxY - strip} width={strip} height={doorPxH + strip} fill="var(--reinforce)" />
+            </>
+          )}
         </>
       )}
 
@@ -353,6 +385,15 @@ function WallIllustration({ wallW, wallH, winW, winH, winX, winY, step, reveal, 
           <rect x={winPxX} y={winPxY} width={winPxW} height={winPxH} fill="#cfe3f2" stroke="#7a8a94" strokeWidth="1.5" />
           <line x1={winPxX} y1={winPxY + winPxH / 2} x2={winPxX + winPxW} y2={winPxY + winPxH / 2} stroke="#7a8a94" strokeWidth="1" />
           <line x1={winPxX + winPxW / 2} y1={winPxY} x2={winPxX + winPxW / 2} y2={winPxY + winPxH} stroke="#7a8a94" strokeWidth="1" />
+        </>
+      )}
+
+      {hasDoor && (
+        <>
+          <rect x={doorPxX} y={doorPxY} width={doorPxW} height={doorPxH} fill="#8b6b4a" stroke="#5c4530" strokeWidth="1.5" />
+          <rect x={doorPxX + doorPxW * 0.12} y={doorPxY + doorPxH * 0.08} width={doorPxW * 0.76} height={doorPxH * 0.38} fill="none" stroke="#5c4530" strokeWidth="1" opacity="0.6" />
+          <rect x={doorPxX + doorPxW * 0.12} y={doorPxY + doorPxH * 0.54} width={doorPxW * 0.76} height={doorPxH * 0.38} fill="none" stroke="#5c4530" strokeWidth="1" opacity="0.6" />
+          <circle cx={doorPxX + doorPxW * 0.85} cy={doorPxY + doorPxH * 0.52} r="2.2" fill="#5c4530" />
         </>
       )}
 
@@ -380,6 +421,85 @@ function WallIllustration({ wallW, wallH, winW, winH, winX, winY, step, reveal, 
   )
 }
 
+function shade(hex, amt) {
+  const num = parseInt(hex.slice(1), 16)
+  let r = (num >> 16) + amt, g = ((num >> 8) & 0xff) + amt, b = (num & 0xff) + amt
+  r = Math.min(255, Math.max(0, r)); g = Math.min(255, Math.max(0, g)); b = Math.min(255, Math.max(0, b))
+  return '#' + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0')
+}
+
+const COS30 = 0.8660254
+const SIN30 = 0.5
+function iso(x, y, z) {
+  return [(x - y) * COS30, (x + y) * SIN30 - z]
+}
+function pts(arr) {
+  return arr.map((p) => p.join(',')).join(' ')
+}
+
+function Exploded3D({ wallType, step, lang }) {
+  const t = UI[lang]
+  const wc = WALL_COLORS[wallType]
+  const wt = t.wallTypes[wallType]
+  const W = 150, D = 95, GAP = 26
+
+  const allLayers = [
+    { id: 1, h: 34, color: wc.baseColor, name: t.legend.underlag, sub: wt.prepShort },
+    { id: 2, h: 10, color: '#e2a63f', name: t.legend.grundning, sub: wt.primerShort },
+    { id: 3, h: 14, color: '#0e6b5c', name: t.legend.tatskikt, sub: t.callouts.membraneSub },
+    { id: 4, h: 20, color: '#f1f4f2', name: t.legend.kakel, sub: t.callouts.tileSub },
+  ]
+  const visible = allLayers.filter((l) => l.id <= step)
+
+  let z0 = 0
+  const placed = visible.map((l) => {
+    const layer = { ...l, z0 }
+    z0 += l.h + GAP
+    return layer
+  })
+
+  const labelLX = 175
+
+  return (
+    <svg width="100%" viewBox="-90 -200 460 380" role="img" style={{ maxWidth: 460 }}>
+      <title>{t.view3d}: {t.title}</title>
+      {placed.map((l, i) => {
+        const z1 = l.z0 + l.h
+        const top = [iso(0, 0, z1), iso(W, 0, z1), iso(W, D, z1), iso(0, D, z1)]
+        const front = [iso(0, 0, l.z0), iso(W, 0, l.z0), iso(W, 0, z1), iso(0, 0, z1)]
+        const right = [iso(W, 0, l.z0), iso(W, D, l.z0), iso(W, D, z1), iso(W, 0, z1)]
+        const anchor = iso(W, D * 0.5, l.z0 + l.h * 0.5)
+        const next = placed[i + 1]
+        return (
+          <g key={l.id}>
+            {next && (
+              <line
+                x1={iso(W / 2, D / 2, z1)[0]} y1={iso(W / 2, D / 2, z1)[1]}
+                x2={iso(W / 2, D / 2, next.z0)[0]} y2={iso(W / 2, D / 2, next.z0)[1]}
+                stroke="var(--ink-soft)" strokeWidth="0.75" strokeDasharray="2 3" opacity="0.5"
+              />
+            )}
+            <polygon points={pts(right)} fill={shade(l.color, -45)} stroke={shade(l.color, -60)} strokeWidth="0.5" />
+            <polygon points={pts(front)} fill={l.color} stroke={shade(l.color, -30)} strokeWidth="0.5" />
+            <polygon points={pts(top)} fill={shade(l.color, 22)} stroke={shade(l.color, -10)} strokeWidth="0.5" />
+            {l.id === 3 && (
+              <rect
+                x={iso(0, 0, l.z0)[0]} y={iso(0, 0, l.z0)[1] - 3}
+                width={iso(W, 0, l.z0)[0] - iso(0, 0, l.z0)[0]} height="3"
+                fill="var(--reinforce)" opacity="0.9"
+              />
+            )}
+            <line x1={anchor[0]} y1={anchor[1]} x2={labelLX - 8} y2={anchor[1] - 4} stroke={shade(l.color, -40)} strokeWidth="1" opacity="0.7" />
+            <circle cx={anchor[0]} cy={anchor[1]} r="3" fill={shade(l.color, -40)} />
+            <text x={labelLX} y={anchor[1]} fontSize="12.5" fontWeight="600" fill="var(--ink)">{l.name}</text>
+            <text x={labelLX} y={anchor[1] + 15} fontSize="10.5" fill="var(--ink-soft)">{l.sub}</text>
+          </g>
+        )
+      })}
+    </svg>
+  )
+}
+
 export default function App() {
   const [wallW, setWallW] = useState(200)
   const [wallH, setWallH] = useState(240)
@@ -387,11 +507,15 @@ export default function App() {
   const [winH, setWinH] = useState(50)
   const [winX, setWinX] = useState(120)
   const [winY, setWinY] = useState(130)
+  const [doorEnabled, setDoorEnabled] = useState(false)
+  const [doorW, setDoorW] = useState(80)
+  const [doorX, setDoorX] = useState(10)
   const [wallType, setWallType] = useState('betong')
   const [step, setStep] = useState(3)
   const [reveal, setReveal] = useState(55)
   const [showSettings, setShowSettings] = useState(false)
   const [lang, setLang] = useState('sv')
+  const [view3d, setView3d] = useState(false)
 
   const t = UI[lang]
   const dir = lang === 'ar' ? 'rtl' : 'ltr'
@@ -400,6 +524,8 @@ export default function App() {
   const clampedWinH = Math.min(winH, wallH - 10)
   const clampedWinX = Math.min(winX, wallW - clampedWinW)
   const clampedWinY = Math.min(winY, wallH - clampedWinH)
+  const clampedDoorW = Math.min(doorW, wallW - 10)
+  const clampedDoorX = Math.min(doorX, wallW - clampedDoorW)
 
   const steps = getSteps(wallType, lang)
   const activeStep = steps.find((s) => s.id === step)
@@ -460,16 +586,26 @@ export default function App() {
 
       <div className="workspace">
         <div className="card illustration-card">
-          <div className="illustration-wrap">
-            <WallIllustration
-              wallW={wallW} wallH={wallH}
-              winW={clampedWinW} winH={clampedWinH}
-              winX={clampedWinX} winY={clampedWinY}
-              step={step} reveal={reveal} wallType={wallType} lang={lang}
-            />
+          <div className="view-toggle-row">
+            <button className={`view-toggle-btn ${!view3d ? 'active' : ''}`} onClick={() => setView3d(false)}>{t.view2d}</button>
+            <button className={`view-toggle-btn ${view3d ? 'active' : ''}`} onClick={() => setView3d(true)}>{t.view3d}</button>
           </div>
 
-          {step === 4 && (
+          <div className="illustration-wrap">
+            {view3d ? (
+              <Exploded3D wallType={wallType} step={step} lang={lang} />
+            ) : (
+              <WallIllustration
+                wallW={wallW} wallH={wallH}
+                winW={clampedWinW} winH={clampedWinH}
+                winX={clampedWinX} winY={clampedWinY}
+                doorEnabled={doorEnabled} doorW={clampedDoorW} doorX={clampedDoorX}
+                step={step} reveal={reveal} wallType={wallType} lang={lang}
+              />
+            )}
+          </div>
+
+          {!view3d && step === 4 && (
             <div className="reveal-row">
               <span>{t.revealLabel}</span>
               <input type="range" min="0" max="100" value={reveal} onChange={(e) => setReveal(Number(e.target.value))} />
@@ -525,6 +661,24 @@ export default function App() {
               <input type="number" value={winY} min={0} max={400} step={5} onChange={(e) => setWinY(Number(e.target.value) || 0)} />
             </div>
           </div>
+
+          <label className="door-toggle">
+            <input type="checkbox" checked={doorEnabled} onChange={(e) => setDoorEnabled(e.target.checked)} />
+            {t.doorToggle}
+          </label>
+
+          {doorEnabled && (
+            <div className="settings-grid door-fields">
+              <div className="field">
+                <label>{t.fields.doorW}</label>
+                <input type="number" value={doorW} min={50} max={300} step={5} onChange={(e) => setDoorW(Number(e.target.value) || 50)} />
+              </div>
+              <div className="field">
+                <label>{t.fields.doorX}</label>
+                <input type="number" value={doorX} min={0} max={400} step={5} onChange={(e) => setDoorX(Number(e.target.value) || 0)} />
+              </div>
+            </div>
+          )}
         </div>
       )}
 
