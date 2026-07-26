@@ -4,12 +4,13 @@ Interaktiv illustration som visar hur tätskikt fungerar i en badrumsvägg — t
 
 ## Vad den gör
 
+- Tre språk — Svenska, English och العربية — växlas med knapparna högst upp till höger. Arabiska visas automatiskt höger-till-vänster (RTL), inklusive etiketterna på själva illustrationen.
 - Väljbar väggtyp — betong eller gipsskiva (våtrumsskiva) — som ändrar förarbetstexten och underlagets utseende
 - Fyra klickbara steg: underlag → grundning (primer) → tätskikt + armering → kakel
+- Etiketter med pilar direkt på illustrationen som pekar ut vad varje del är, beroende på valt steg och språk
 - Måtten på väggen och fönstret kan ställas in ("Anpassa mått") så illustrationen matchar kundens badrum
 - Reglage i sista steget visar hur kaklet läggs ovanpå tätskiktet
 - "Skriv ut / spara som PDF"-knapp för att lämna kvar en utskrift hos kunden
-- Varje steg har en kort, kundvänlig förklaringstext som anpassas efter vald väggtyp (för underlag och grundning)
 
 ## Köra lokalt
 
@@ -50,6 +51,6 @@ tatskikt-guide/
 
 ## Anpassa vidare
 
-- Väggtyperna (betong/gipsskiva) ligger i `WALL_TYPES`-objektet i `App.jsx` — lägg till fler typer (t.ex. "Kalciumsilikatskiva") genom att lägga till en ny nyckel med `label`, `baseColor`, `baseColorDeep`, `prep` och `primer`.
-- Stegtexterna som är gemensamma för alla väggtyper (tätskikt, kakel) ligger i `getSteps()`-funktionen i `App.jsx`.
+- Alla texter för alla tre språk ligger samlat i `UI`-objektet högst upp i `App.jsx` — varje språk (`sv`, `en`, `ar`) har exakt samma struktur, så det är enkelt att justera ordval eller lägga till ett fjärde språk genom att kopiera ett helt språkblock och översätta det.
+- Väggtyperna (betong/gipsskiva) ligger under `wallTypes` inom varje språk i `UI`.
 - Färgerna (underlag/grundning/tätskikt/armering) styrs av CSS-variabler i `App.css` (`--concrete`, `--primer`, `--membrane`, `--reinforce`).
