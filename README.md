@@ -8,7 +8,8 @@ Interaktiv illustration som visar hur tätskikt fungerar i en badrumsvägg — t
 - Väljbar väggtyp — betong eller gipsskiva (våtrumsskiva) — som ändrar förarbetstexten och underlagets utseende
 - Fyra klickbara steg: underlag → grundning (primer) → tätskikt + armering → kakel
 - Etiketter med pilar direkt på illustrationen som pekar ut vad varje del är, beroende på valt steg och språk
-- Måtten på väggen och fönstret kan ställas in ("Anpassa mått") så illustrationen matchar kundens badrum
+- Måtten på väggen och fönstret kan ställas in ("Anpassa mått"), och en dörr kan valfritt läggas till på väggen med egna mått
+- Två vyer: en platt vy (som förut) och en **3D-sprängskiss** som visar lagren separerade i rymden ovanpå varandra, i isometriskt perspektiv
 - Reglage i sista steget visar hur kaklet läggs ovanpå tätskiktet
 - "Skriv ut / spara som PDF"-knapp för att lämna kvar en utskrift hos kunden
 
